@@ -1,8 +1,7 @@
 package com.mfons_projects.walletapp.domain.enums;
 
-public enum StatusType {
+public enum StatusResponse {
     PENDING,
-    SENT,
-    FAILED,
-    COMPLETED
+    SUCCESS,
+    FAILED;
 }
