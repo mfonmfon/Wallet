@@ -2,9 +2,11 @@ package com.mfons_projects.walletapp.service.implimentaion;
 
 import com.mfons_projects.walletapp.Dtos.request.DepositRequest;
 import com.mfons_projects.walletapp.Dtos.request.RegistrationRequest;
+import com.mfons_projects.walletapp.Dtos.request.TransactionRequest;
 import com.mfons_projects.walletapp.Dtos.request.WalletDepositRequest;
 import com.mfons_projects.walletapp.Dtos.response.DepositResponse;
 import com.mfons_projects.walletapp.Dtos.response.RegistrationResponse;
+import com.mfons_projects.walletapp.Dtos.response.TransactionResponse;
 import com.mfons_projects.walletapp.Dtos.response.WalletDepositResponse;
 import com.mfons_projects.walletapp.domain.enums.StatusResponse;
 import com.mfons_projects.walletapp.domain.models.Customer;
@@ -51,11 +53,11 @@ public class CustomerServiceImpl implements CustomerService {
         walletDepositRequest.setWalletId(walletDepositRequest.getWalletId());
         WalletDepositResponse walletDepositResponse = walletService.deposit(walletDepositRequest);
         walletDepositResponse.setStatus(StatusResponse.SUCCESS.toString());
-        Transactions transactions = new Transactions();
-        return null;
-
+        mapper.map(customer, TransactionRequest.class);
+        TransactionResponse transaction = new TransactionResponse();
+        mapper.map(transaction, Customer.class);
+        return null ;
     }
-
     private void validateCustomerEmail(String email) throws CustomerAlreadyExistException {
         boolean isCustomerEmailExist = customerRepository.findByEmail(email);
         if(isCustomerEmailExist)throw new CustomerAlreadyExistException("Customer already exists");

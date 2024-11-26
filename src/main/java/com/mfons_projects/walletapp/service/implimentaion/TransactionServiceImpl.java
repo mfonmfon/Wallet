@@ -26,14 +26,12 @@ public class TransactionServiceImpl implements TransactionService {
         transactions = transactionRepository.save(transactions);
         return modelMapper.map(transactions, TransactionResponse.class);
     }
-
     @Override
     public TransactionResponse getTransactionBy(Long transactionId) throws TransactionNotFoundException {
         return modelMapper.map(transactionRepository.findById(transactionId)
                         .orElseThrow(()-> new TransactionNotFoundException("Transaction not found")),
                 TransactionResponse.class);
     }
-
     @Override
     public TransactionResponse retrieveTransaction(RetrieveTransactionRequest transactionRequest) throws TransactionNotFoundException {
         Transactions transactions = transactionRepository.findById(transactionRequest.getTransactionId())
